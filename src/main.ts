@@ -1,21 +1,25 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
 
+const DEBUG_MODE: boolean = false;
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
+    width: 800,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
-    width: 800,
+    icon: path.join(__dirname, "../resources/icon/icon_64x64.png"),
   });
 
-  // and load the index.html of the app.
+  mainWindow.removeMenu()
   mainWindow.loadFile(path.join(__dirname, "../index.html"));
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (DEBUG_MODE === true) {
+    mainWindow.webContents.openDevTools();
+  } 
 }
 
 // This method will be called when Electron has finished

@@ -8,6 +8,9 @@ Project
 │   ├── main.ts
 │   ├── preload.ts
 │   └── renderer.ts
+├── resources 
+│   └── icon 
+│         └── icon_64x64.png
 ├── index.html
 ├── LICENSE
 ├── package-lock.json
