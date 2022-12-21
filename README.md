@@ -1,12 +1,16 @@
 # This is a template project for developing electron applications with TypeScript, Vue.js, Python.
 
-File Struecture
+## File Structure
 
 Project
-    src
-    index.html
-    LICENSE
-    package-lock.json
-    package.json
-    README.md
-    tsconfig.json
+├── src
+│   ├── main.ts
+│   ├── preload.ts
+│   └── renderer.ts
+├── index.html
+├── LICENSE
+├── package-lock.json
+├── package.json
+├── README.md
+└── tsconfig.json
+    
