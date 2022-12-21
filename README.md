@@ -1,7 +1,7 @@
 # This is a template project for developing electron applications with TypeScript, Vue.js, Python.
 
 ## File Structure
-'''
+```
 Project
 ├── src
 │   ├── main.ts
@@ -13,4 +13,4 @@ Project
 ├── package.json
 ├── README.md
 └── tsconfig.json
-'''
+```
