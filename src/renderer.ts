@@ -3,15 +3,16 @@
 // No Node.js APIs are available in this process unless
 // nodeIntegration is set to true in webPreferences.
 // Use preload.js to selectively enable features
+import { app } from "electron";
 
-// import { PythonShell } from "python-shell";
-// import * as path from "path";
+const setTitleButton = document.getElementById('setTitleButton');
+const inputTitle = document.getElementById('inputTitle');
+const welcome = document.getElementById('welcome');
 
-// needed in the renderer process.
+setTitleButton.addEventListener("click", function(){
+    // const title = inputTitle.value;
+    mainWindow.electronAPI.setTitle("sdfa");
 
-// const element = document.getElementById("welcome");
 
-// if (element) {
-//     // element.innerText = path.join("kim", "dad");
-//     element.innerText = "dasdf";
-// }
+})
+

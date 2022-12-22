@@ -1,8 +1,7 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 
-import { PythonShell } from "python-shell";
-import * as path from "path";
+import { contextBridge, ipcRenderer } from "electron";
 
 window.addEventListener("DOMContentLoaded", 
   function(){
@@ -16,3 +15,7 @@ window.addEventListener("DOMContentLoaded",
     replaceText("welcome", "Hello, World!");
   }
 );
+
+contextBridge.exposeInMainWorld("electronAPI", {
+  setTitle: (title: any) => ipcRenderer.send('set-title', title)
+});

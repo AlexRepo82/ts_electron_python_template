@@ -1,21 +1,29 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import reload from "electron-reload";
 import * as path from "path";
 
 const DEBUG_MODE: boolean = false;
 console.debug("Working folder:" + path.join(__dirname, ".."));
+reload(path.join(__dirname, ".."), {});
 
 // Create the browser window.
+let mainWindow;
+
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
-      nodeIntegration: true,
     },
     icon: path.join(__dirname, "../resources/icon/icon_64x64.png"),
   });
+
+  ipcMain.on('set-title', function(event, title){
+    const webContents = event.sender;
+    const browserWin = BrowserWindow.fromWebContents(webContents);
+    browserWin.setTitle(title);
+  })
 
   mainWindow.removeMenu()
   mainWindow.loadFile(path.join(__dirname, "../index.html"));
@@ -49,5 +57,3 @@ app.on("window-all-closed", () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
-
-reload(path.join(__dirname, ".."), {});

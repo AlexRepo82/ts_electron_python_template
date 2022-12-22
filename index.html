@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Open DB Downloader</title>
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
@@ -12,10 +11,12 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
+    <title id="mainTitle">OpenDB Downloader</title>
   </head>
   <body>
     <div>
-      <button>Get List</button>
+      Title: <input id="inputTitle"/>
+      <button id="setTitleButton" type="button">Set Title</button>
     </div>
     <hr>
     <div>
