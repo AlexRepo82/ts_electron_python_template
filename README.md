@@ -5,6 +5,8 @@
 ```
 Project
 ├── src
+│   ├── css 
+│   ├── scripts 
 │   ├── main.ts
 │   ├── preload.ts
 │   └── renderer.ts

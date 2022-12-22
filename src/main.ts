@@ -1,15 +1,18 @@
 import { app, BrowserWindow } from "electron";
+import reload from "electron-reload";
 import * as path from "path";
 
 const DEBUG_MODE: boolean = false;
+console.debug("Working folder:" + path.join(__dirname, ".."));
 
+// Create the browser window.
 function createWindow() {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
     },
     icon: path.join(__dirname, "../resources/icon/icon_64x64.png"),
   });
@@ -19,7 +22,7 @@ function createWindow() {
 
   if (DEBUG_MODE === true) {
     mainWindow.webContents.openDevTools();
-  } 
+  }
 }
 
 // This method will be called when Electron has finished
@@ -46,3 +49,5 @@ app.on("window-all-closed", () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+reload(path.join(__dirname, ".."), {});
