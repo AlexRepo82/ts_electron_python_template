@@ -1,36 +1,39 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow } from "electron";
 import reload from "electron-reload";
 import * as path from "path";
+import { ipcMainLoader } from "./ipcMain";
 
-const DEBUG_MODE: boolean = false;
+// Debugging 
+const DEBUG_MODE: boolean = true;
 console.debug("Working folder:" + path.join(__dirname, ".."));
-reload(path.join(__dirname, ".."), {});
+
+// Hot reloading 
+if (DEBUG_MODE) {
+  reload(path.join(__dirname, ".."), {});
+}
 
 // Create the browser window.
-let mainWindow;
+let mainWindow: any;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({
+  const options = {
     height: 600,
     width: 800,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
     icon: path.join(__dirname, "../resources/icon/icon_64x64.png"),
-  });
+  };
 
-  ipcMain.on('set-title', function(event, title){
-    const webContents = event.sender;
-    const browserWin = BrowserWindow.fromWebContents(webContents);
-    browserWin.setTitle(title);
-  })
-
-  mainWindow.removeMenu()
+  mainWindow = new BrowserWindow(options);
+  mainWindow.removeMenu();
   mainWindow.loadFile(path.join(__dirname, "../index.html"));
 
-  if (DEBUG_MODE === true) {
+  if (DEBUG_MODE) {
     mainWindow.webContents.openDevTools();
   }
+
+  ipcMainLoader();
 }
 
 // This method will be called when Electron has finished
@@ -39,12 +42,14 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
 
-  app.on("activate", function () {
+  app.on("activate", () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-});
+  })
+
+  mainWindow.webContents.send('eventFromMain', "SungjinKim");
+})
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -53,7 +58,7 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
-});
+})
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
