@@ -1,7 +1,7 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 
-import { contextBridge, dialog, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 
 // ipcMain APIs
 contextBridge.exposeInMainWorld(
